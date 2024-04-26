@@ -179,63 +179,64 @@
   </head>
   <body>
     <div class="heading-container">
-      <img src="static/logo_light.png" alt="Logo" class="logo" />
+<!--      <img src="static/logo_light.png" alt="Logo" class="logo" />-->
       <h1>Sector III</h1>
     </div>
 
     <table>
-      <thead>
-        <tr>
-          <th><b>Button Name </b></th>
-          <th><b>Action</b></th>
-        </tr>
-      </thead>
-      <tbody>
+    <thead>
+      <tr>
+        <th><b>Image Name </b></th>
+        <th><b>Action</b></th>
+      </tr>
+    </thead>
+    <tbody>
       <tr>
         <td>Azimuth Cell</td>
         <td>
           <button onclick="document.getElementById('AzimuthCellSec3').click()">
-            Upload Image
+            Upload
           </button>
           <input
             type="file"
             id="AzimuthCellSec3"
             name="AzimuthCellSec3"
             accept="image/*"
-            onchange="storeImageFile(this.files[0], 'AzimuthCellSec3')"
-          />
+            onchange="displayFileName('AzimuthCellSec3',  'AzimuthImageSec3')"
+          >
           <span id="AzimuthImageSec3"></span>
         </td>
       </tr>
       <tr>
-        <td>Mechanical Cell</td>
-        <td>
-          <button onclick="document.getElementById('MechanicalSec3').click()">
-            Upload Image
-          </button>
-          <input
-            type="file"
-            id="MechanicalSec3"
-            name="MechanicalSec3"
-            accept="image/*"
-            onchange="storeImageFile(this.files[0], 'MechanicalSec3')"
-          />
-          <span id="MechanicalImageSec3"></span>
-        </td>
-      </tr>
+  <td>Mechanical Cell</td>
+  <td>
+    <button onclick="document.getElementById('MechanicalSec3').click()">
+      Upload
+    </button>
+    <input
+      type="file"
+      id="MechanicalSec3"
+      name="MechanicalSec3"
+      accept="image/*"
+      onchange="displayFileName('MechanicalSec3', 'MechanicalImageSec3')"
+    >
+    <span id="MechanicalImageSec3"></span>
+  </td>
+</tr>
+
       <tr>
         <td>Electrical Cell</td>
         <td>
           <button onclick="document.getElementById('ElectricalSec3').click()">
-            Upload Image
+            Upload
           </button>
           <input
             type="file"
             id="ElectricalSec3"
             name="ElectricalSec3"
             accept="image/*"
-            onchange="storeImageFile(this.files[0], 'ElectricalSec3')"
-          />
+            onchange="displayFileName( 'ElectricalSec3','ElectricalImageSec3')"
+          >
           <span id="ElectricalImageSec3"></span>
         </td>
       </tr>
@@ -243,15 +244,15 @@
         <td>Antenna Height</td>
         <td>
           <button onclick="document.getElementById('AntennaHeightSec3').click()">
-            Upload Image
+            Upload
           </button>
           <input
             type="file"
             id="AntennaHeightSec3"
             name="AntennaHeightSec3"
             accept="image/*"
-            onchange="storeImageFile(this.files[0], 'AntennaHeightSec3')"
-          />
+            onchange="displayFileName( 'AntennaHeightSec3','AntHeightImageSec3')"
+          >
           <span id="AntHeightImageSec3"></span>
         </td>
       </tr>
@@ -260,15 +261,15 @@
         <td>Pole Tilt</td>
         <td>
           <button onclick="document.getElementById('PoleTiltSec3').click()">
-            Upload Image
+            Upload
           </button>
           <input
             type="file"
             id="PoleTiltSec3"
             name="PoleTiltSec3"
             accept="image/*"
-            onchange="storeImageFile(this.files[0], 'PoleTiltSec3')"
-          />
+            onchange="displayFileName( 'PoleTiltSec3','PoleTiltImageSec3')"
+          >
           <span id="PoleTiltImageSec3"></span>
         </td>
       </tr>
@@ -276,15 +277,15 @@
         <td>Mirror Compass Photo</td>
         <td>
           <button onclick="document.getElementById('MirrorCompassSec3').click()">
-            Upload Image
+            Upload
           </button>
           <input
             type="file"
             id="MirrorCompassSec3"
             name="MirrorCompassSec3"
             accept="image/*"
-            onchange="storeImageFile(this.files[0], 'MirrorCompassSec3')"
-          />
+            onchange="displayFileName( 'MirrorCompassSec3', 'MirrorCompassImageSec3')"
+          >
           <span id="MirrorCompassImageSec3"></span>
         </td>
       </tr>
@@ -292,22 +293,22 @@
         <td>Antenna Marking Photo</td>
         <td>
           <button onclick="document.getElementById('AntennaMarkingSec3').click()">
-            Upload Image
+            Upload
           </button>
           <input
             type="file"
             id="AntennaMarkingSec3"
             name="AntennaMarkingSec3"
             accept="image/*"
-            onchange="storeImageFile(this.files[0], 'AntennaMarkingSec3')"
-          />
+            onchange="displayFileName( 'AntennaMarkingSec3','AntMarkingImageSec3')"
+          >
           <span id="AntMarkingImageSec3"></span>
         </td>
       </tr>
 
       <!-- Add similar rows for other buttons and file inputs -->
     </tbody>
-    </table>
+  </table>
 
     <button id="submitButton" onclick="submitForm3()">Submit</button>
     <p

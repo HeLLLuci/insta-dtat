@@ -275,12 +275,6 @@ color: white;
 <form method="POST" id="statusForm">
 
     <div class="form-container">
-        <label for="circle1">Select Task Status:</label>
-        <select name="circle1" id="circle1" class="dropdown">
-            <option value="Select Circle">-- Select Status --</option>
-            <option value="Completed">Completed Task</option>
-            <option value="Pending">Pending Task</option>
-        </select>
 
         <label for="circle">Select Circle:</label>
         <select id="circle" name="circle" class="dropdown">
@@ -306,13 +300,13 @@ color: white;
             <option value="KE">KE(Kerala)</option>
         </select>
         <div class="date-container">
-          <label for="fromDate"> Date:</label>
+          <label for="fromDate"> From Date:</label>
             <span class="calendar-icon"><i class="far fa-calendar-alt"></i></span>
             <input type="date" class="date-input" id="fromDate" name="fromDate" placeholder=" Date">
         </div>
         <br>
         <div class="date-container">
-          <label for="toDate"> Date:</label>
+          <label for="toDate"> To Date:</label>
             <span class="calendar-icon"><i class="far fa-calendar-alt"></i></span>
             <input type="date" class="date-input" id="toDate" name="toDate" placeholder="To Date">
         </div>
@@ -330,6 +324,7 @@ color: white;
                     <th>Employee</th>
                     <th>Date</th>
                     <th>Log Details</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody id="tableData">
@@ -341,6 +336,7 @@ color: white;
                         <td>{{ row.AssignedEmployee }}</td>
                         <td>{{ row.AllocatedDate }}</td>
                         <td><a href="/logdetails?siteCode={{ row.siteCode }}">Log Details</a></td>
+                         <td>{{ row.Status }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -353,6 +349,7 @@ color: white;
             var activityDropdownContent = document.getElementById("activityDropdownContent");
             var profileDropdownContent = document.getElementById("profileDropdownContent");
             if (activityDropdownContent.style.display === "block") {
+                activityDropdownContent.style.display = "none";
                 activityDropdownContent.style.display = "none";
             } else {
                 activityDropdownContent.style.display = "block";
