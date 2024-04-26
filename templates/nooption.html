@@ -223,6 +223,14 @@
 
     <div class="all">
         <div class="nav-links">
+            <div class="dropdown" onclick="toggleActivityDropdown()">
+                <a href="#" class="dropbtn">Activity</a>
+                <!-- Adding sub-options under "Activity" -->
+                <div class="dropdown-content" id="activityDropdownContent">
+                    <a href="/taskallocation">Task Allocation</a>
+                    <a href="/usertaskStatus">Task Status</a>
+                </div>
+            </div>
             <div class="dropdown" onclick="toggleProfileDropdown()">
                 <a href="#" class="dropbtn">Profile</a>
                 <div class="dropdown-content" id="profileDropdownContent">
@@ -235,21 +243,20 @@
     </div>
 
 
-<form method="POST" >
-    <div class="container">
-        <h3>Enter Your Issue:</h3>
-        <div class="other-issue" id="otherIssue">
-            <input type="text" id="other" name="other" placeholder="Describe your issue...">
-            <p class="error-message" id="errorMessage" style="display: none;">Please describe your issue before submitting.</p>
-        </div>
-        <div class="button-container">
-            <button id="submitButton" onclick="submitIssue()">Submit</button>
-        </div>
-        <div id="successMessage" style="display: none; text-align: center; margin-top: 20px; color: green;">
-            Issue successfully submitted!
-        </div>
+
+<div class="container">
+    <h3>Enter Your Issue:</h3>
+    <div class="other-issue" id="otherIssue">
+        <input type="text" id="other" name="other" placeholder="Describe your issue...">
+        <p class="error-message" id="errorMessage" style="display: none;">Please describe your issue before submitting.</p>
     </div>
-</form>
+    <div class="button-container">
+        <button id="submitButton" onclick="submitIssue()">Submit</button>
+    </div>
+    <div id="successMessage" style="display: none; text-align: center; margin-top: 20px; color: green;">
+        Issue successfully submitted!
+    </div>
+</div>
 
 <script>
     function toggleActivityDropdown() {
@@ -294,7 +301,7 @@
         // For example, show success message and redirect after 3 seconds
         successMessage.style.display = "block";
         setTimeout(function() {
-            window.location.href = 'welcomeuser.html'; // Redirect to another page after 3 seconds
+            window.location.href = 'Allocationrequest.html'; // Redirect to another page after 3 seconds
         }, 3000); // 3000 milliseconds = 3 seconds
     }
 </script>

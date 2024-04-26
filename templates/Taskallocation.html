@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css">
     <title>Project Management</title>
     <style>
       body{
@@ -264,7 +263,7 @@ select {
       .cancel{
       margin-right:20px;
         margin-top: 5%;
-        width: 60%; /* Make button full width */
+        width: 80%; /* Make button full width */
       }
     @media screen and (max-width: 600px) {
       .container {
@@ -390,13 +389,9 @@ select {
     margin-right: 10px; /* Adjust margin between buttons */
 }
 .cancel{
-width: calc(50% - 5px); /* Set both buttons to be 50% of the container width minus any margin */
-    padding: 10px; /* Add padding for better appearance */
-    box-sizing: border-box; /* Include padding and border in the total width */
-     /* Adjust margin between buttons */
       margin-right:20px;
         margin-top: 5%;
-        /* Make button full width */
+        width: 80%; /* Make button full width */
       }
     }
 
@@ -437,7 +432,7 @@ width: calc(50% - 5px); /* Set both buttons to be 50% of the container width min
                 <a href="#" class="dropbtn">Activity</a>
                 <!-- Adding sub-options under "Activity" -->
                 <div class="dropdown-content" id="activityDropdownContent">
-                    <a href="/projectallocation">Task Allocation</a>
+<!--                    <a href="/taskallocation">Task Allocation</a>-->
                     <a href="/admintaskStatus">Task Status</a>
                 </div>
             </div>
@@ -501,14 +496,11 @@ width: calc(50% - 5px); /* Set both buttons to be 50% of the container width min
       </table>
     </div>
 
-        <div id="successMessage" style="display: none; text-align: center; margin-top: 10px; color: green;">
-        Data successfully submitted!
-    </div>
-    <button type="submit" id="submit1"  class="submit">
+    <button type="submit" id="submit1" class="submit">
         Save Table Data
     </button>
     </form>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js"></script>
+
     <script>
       document.getElementById("allocation-form").addEventListener("submit", function (event) {
     event.preventDefault();
@@ -542,8 +534,6 @@ if (employeeName === "Select Circle") {
 });
 
     document.getElementById("submit1").addEventListener("click", function(event) {
-     document.getElementById("successMessage").style.display = "block";
-
     window.location.href = "templates/fillpostdata.html";
   });
 
@@ -567,22 +557,22 @@ function allocateTask(event, employeeName, projectName) {
     const allocatedDate = row.querySelector('[name="allocated-date"]').value;
 
     if (siteCode === "") {
-        swal("Error!", "Site Code can't be null", "error");
+        alert("Site Code can't be null");
         return;
     }
 
     if (latitude === "") {
-        swal("Error!", "Latitude can't be null", "error");
+        alert("Latitude can't be null");
         return;
     }
 
     if (longitude === "") {
-        swal("Error!", "Longitude can't be null", "error");
+        alert("Longitude can't be null");
         return;
     }
 
     if (allocatedDate === "") {
-          swal("Error!", "Allocated date can't be null", "error");
+        alert("Allocated date can't be null");
         return;
     }
 
@@ -595,15 +585,11 @@ function allocateTask(event, employeeName, projectName) {
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.onload = function () {
         if (xhr.status === 200) {
-            swal({
-                title: "Success!",
-                text: `Task allocated to ${employeeName}`,
-                icon: "success",
-                button: "OK",
-            });
+            console.log(xhr.responseText);
+            alert(`Task allocated to ${employeeName}`);
         } else {
             console.error(xhr.responseText);
-            swal("Error!", "Failed to allocate task", "error");
+            alert("Failed to allocate task");
         }
     };
     xhr.send(JSON.stringify({
@@ -613,10 +599,10 @@ function allocateTask(event, employeeName, projectName) {
         Longitude: longitude,
         AllocatedDate: allocatedDate,
         ProjectName: projectName,
+        status: "Pending",
         CircleName: nameCircle // Adding nameCircle parameter here
     }));
 }
-
 
 
       function cancelAllocation(button) {
@@ -629,7 +615,7 @@ function allocateTask(event, employeeName, projectName) {
           .getElementById("employee")
           .querySelector(`option[value="${employeeName}"]`).disabled = false;
 
-       swal("Error!", " Task Cancelled ", "error");
+        alert("Allocation cancelled");
       }
 
       function populateEmployeeDropdown() {

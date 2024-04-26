@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Post Data</title>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <style>
+     [3:39 pm, 19/4/2024] Sakshi Rajurkar: window.onload = function() {
+        loadSector('postsector1.html'); // Load presector1.html by default when the page loads
+    }
+[3:41 pm, 19/4/2024] Sakshi Rajurkar: /* General Styles */
         body {
             margin: 0;
             padding: 0;
@@ -118,7 +121,7 @@
 
 <div class="container">
     <div class="sidebar">
-<!--        <img src="static/logo_light.png" alt="Logo" class="logo">-->
+        <img src="static/logo_light.png" alt="Logo" class="logo">
         <h1> Upload Post Data</h1>
         <ul class="sector-list">
             <li class="sector-item" onclick="loadSector('postsector1.html')">Sector 1</li>
@@ -193,42 +196,18 @@
         })
         .then((response) => {
             if (response.ok) {
-            if (window.innerWidth <= 600) {
-                // Display mobile view success message
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Successfully uploaded images for sector-1',
-                    confirmButtonText: 'OK'
-                });
+                document.getElementById("successMessage").style.display = "block";
+
             } else {
-                // Display web view success message
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Successfully uploaded images for sector-1',
-                    confirmButtonText: 'OK'
-                });
+                return alert("Please select correct image");
             }
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Please select correct image',
-                confirmButtonText: 'OK'
-            });
-        }
-    })
-    .catch((error) => {
-        console.error("Error:", error);
-<!--        Swal.fire({-->
-<!--            icon: 'error',-->
-<!--            title: 'Error',-->
-<!--            text: 'Error uploading images',-->
-<!--            confirmButtonText: 'OK'-->
-<!--        });-->
-    });
-}
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+            alert("Error uploading images");
+        });
+    }
+
     // Function for submitting form for postsector2.html
     function submitForm2() {
         const formData = new FormData();
@@ -245,92 +224,47 @@
         })
         .then((response) => {
             if (response.ok) {
-      // Display success message using SweetAlert
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: 'Successfully uploaded images for sector-2',
-        confirmButtonText: 'OK',
-        onClose: () => {
-          // Redirect to the next page after closing the popup
-<!--          window.location.href = "presector3.html";-->
-        }
-      });
-    } else {
-      // Display error message using SweetAlert
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Please select correct image',
-        confirmButtonText: 'OK'
-      });
-    }
-  })
-  .catch((error) => {
-    // Display error message using SweetAlert
-    Swal.fire({
-      icon: 'error',
-      title: 'Error',
-      text: 'An error occurred while uploading images.',
-      confirmButtonText: 'OK'
-    });
-    console.error("Error:", error);
-  });
-}
+                document.getElementById("successMessage").style.display = "block";
 
+            } else {
+                return alert("Please select correct image");
+            }
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+            alert("Error uploading images");
+        });
+    }
 
 
     // Function for submitting form for postsector3.html
-   function submitForm3() {
-    const formData = new FormData();
+    function submitForm3() {
+        const formData = new FormData();
 
-    const fileInputs = document.querySelectorAll('input[type="file"]');
-    fileInputs.forEach((input) => {
-        const file = input.files[0];
-        formData.append(input.name, file);
-    });
-
-    fetch("/postupload-images-3", {
-        method: "POST",
-        body: formData,
-    })
-    .then((response) => {
-        if (response.ok) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: 'Successfully uploaded images for sector-3',
-                confirmButtonText: 'OK',
-                onClose: () => {
-                    Swal.fire({
-                        icon: 'info',
-                        title: 'Confirmation',
-                        text: 'Are you sure you want to submit post data?',
-                        showCancelButton: true,
-                        confirmButtonText: 'Yes',
-                        cancelButtonText: 'No'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = "/welcomeuser";
-                        }
-                    });
-                }
-            });
-        } else {
-            throw new Error("Failed to redirect");
-        }
-    })
-    .catch((error) => {
-        console.error("Error:", error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'An error occurred while uploading images.',
-            confirmButtonText: 'OK'
+        const fileInputs = document.querySelectorAll('input[type="file"]');
+        fileInputs.forEach((input) => {
+            const file = input.files[0];
+            formData.append(input.name, file);
         });
-    });
-}
 
+        fetch("/postupload-images-3", {
+            method: "POST",
+            body: formData,
+        })
+        .then((response) => {
+            if (response.ok) {
+                document.getElementById("successMessage").style.display = "block";
+                window.location.href = "/welcomeuser";
+
+            } else {
+                return alert("Failed to redirect");
+            }
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+            alert("Error uploading images");
+        });
+    }
 
 
 </script>

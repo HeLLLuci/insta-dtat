@@ -181,28 +181,27 @@
             id="AzimuthCellSec3"
             name="AzimuthCellSec3"
             accept="image/*"
-            onchange="displayFileName('AzimuthCellSec3',  'AzimuthImageSec3')"
-          >
+            onchange="storeImageFile(this.files[0], 'AzimuthCellSec3')"
+          />
           <span id="AzimuthImageSec3"></span>
         </td>
       </tr>
       <tr>
-  <td>Mechanical Cell</td>
-  <td>
-    <button onclick="document.getElementById('MechanicalSec3').click()">
-      Upload
-    </button>
-    <input
-      type="file"
-      id="MechanicalSec3"
-      name="MechanicalSec3"
-      accept="image/*"
-      onchange="displayFileName('MechanicalSec3', 'MechanicalImageSec3')"
-    >
-    <span id="MechanicalImageSec3"></span>
-  </td>
-</tr>
-
+        <td>Mechanical Cell</td>
+        <td>
+          <button onclick="document.getElementById('MechanicalSec3').click()">
+            Upload
+          </button>
+          <input
+            type="file"
+            id="MechanicalSec3"
+            name="MechanicalSec3"
+            accept="image/*"
+            onchange="storeImageFile(this.files[0], 'MechanicalSec3')"
+          />
+          <span id="MechanicalImageSec3"></span>
+        </td>
+      </tr>
       <tr>
         <td>Electrical Cell</td>
         <td>
@@ -214,8 +213,8 @@
             id="ElectricalSec3"
             name="ElectricalSec3"
             accept="image/*"
-            onchange="displayFileName( 'ElectricalSec3','ElectricalImageSec3')"
-          >
+            onchange="storeImageFile(this.files[0], 'ElectricalSec3')"
+          />
           <span id="ElectricalImageSec3"></span>
         </td>
       </tr>
@@ -230,8 +229,8 @@
             id="AntennaHeightSec3"
             name="AntennaHeightSec3"
             accept="image/*"
-            onchange="displayFileName( 'AntennaHeightSec3','AntHeightImageSec3')"
-          >
+            onchange="storeImageFile(this.files[0], 'AntennaHeightSec3')"
+          />
           <span id="AntHeightImageSec3"></span>
         </td>
       </tr>
@@ -247,8 +246,8 @@
             id="PoleTiltSec3"
             name="PoleTiltSec3"
             accept="image/*"
-            onchange="displayFileName( 'PoleTiltSec3','PoleTiltImageSec3')"
-          >
+            onchange="storeImageFile(this.files[0], 'PoleTiltSec3')"
+          />
           <span id="PoleTiltImageSec3"></span>
         </td>
       </tr>
@@ -263,8 +262,8 @@
             id="MirrorCompassSec3"
             name="MirrorCompassSec3"
             accept="image/*"
-            onchange="displayFileName( 'MirrorCompassSec3', 'MirrorCompassImageSec3')"
-          >
+            onchange="storeImageFile(this.files[0], 'MirrorCompassSec3')"
+          />
           <span id="MirrorCompassImageSec3"></span>
         </td>
       </tr>
@@ -279,8 +278,8 @@
             id="AntennaMarkingSec3"
             name="AntennaMarkingSec3"
             accept="image/*"
-            onchange="displayFileName( 'AntennaMarkingSec3','AntMarkingImageSec3')"
-          >
+            onchange="storeImageFile(this.files[0], 'AntennaMarkingSec3')"
+          />
           <span id="AntMarkingImageSec3"></span>
         </td>
       </tr>
@@ -294,103 +293,55 @@
       id="successMessage"
       style="color: #333333; margin-top: 10%; margin-left: 35%; display: none"
     >
-<!--      Successfully uploaded images for sector-3-->
+      Successfully uploaded images for sector-3
     </p>
     <p id="mobileSuccessMessage" style="color: #333333; margin-top: 70px; margin-left: 25%; display: none">
       <!-- Message for mobile view -->
       Successfully uploaded images for sector-3
     </p>
-  </form>
 
   <script>
     let imagesFile = {};
 
     function storeImageFile(file, inputId) {
       imagesFile[inputId] = file;
-    displayFileName(inputId, inputId.replace("Sec3", "ImageSec3"));
-<!--      console.log("File:", file);-->
-<!--      console.log("Input ID:", inputId);-->
-<!--      console.log("Span ID:", spanId);-->
-<!--      displayFileName(inputId, spanId);-->
+      displayFileName(inputId, inputId.replace("Sec3", "ImageSec3"));
     }
 
-   function displayFileName(inputId, spanId) {
-        const input = document.getElementById(inputId);
-        const fileNameSpan = document.getElementById(spanId);
-
-        if (input.files.length > 0) {
-            fileNameSpan.textContent = input.files[0].name;
-        } else {
-            fileNameSpan.textContent = "";
-        }
+    function displayFileName(inputId, spanId) {
+      const input = document.getElementById(inputId);
+      const fileNameSpan = document.getElementById(spanId);
+      if (input.files.length > 0) {
+        fileNameSpan.textContent = input.files[0].name;
+      } else {
+        fileNameSpan.textContent = "";
+      }
     }
 
-   function submitForm3() {
+    function submitForm3() {
+      const formData = new FormData();
 
+      for (const inputId in imagesFile) {
+        formData.append(inputId, imagesFile[inputId]);
+      }
 
-    Swal.fire({
-        title: 'Are you sure?',
-        text: 'You want to submit the data?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, submit it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-         const formData = new FormData();
-
-            const fileInputs = document.querySelectorAll('input[type="file"]');
-            fileInputs.forEach((input) => {
-                const file = input.files[0];
-                formData.append(input.name, file);
-            });
-
-            // If user clicks "OK", proceed with form submission and redirection
-            fetch("/upload-images-3", {
-                method: "POST",
-                body: formData,
-            })
-            .then((response) => {
-                if (response.ok) {
-                    // Display success message
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: 'Successfully uploaded images for sector-3',
-                    }).then(() => {
-                        // Display success message based on window width
-                        if (window.innerWidth <= 600) {
-                            // Display mobile view success message
-                            document.getElementById("mobileSuccessMessage").style.display = "block";
-                        } else {
-                            // Display web view success message
-                            document.getElementById("successMessage").style.display = "block";
-                        }
-                        // Redirect to the next page after displaying the success message
-                        window.location.href = "postdata.html";
-                    });
-                } else {
-                    throw new Error("Failed to redirect");
-                }
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Error uploading images',
-                });
-            });
-        } else {
-            // If user clicks "Cancel", do nothing
-            // Optionally, you can provide feedback to the user that the submission was canceled
-            Swal.fire('Submission canceled.', '', 'info');
-        }
-    });
-}
-
-
+      fetch("/upload-images-3", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => {
+          if (response.ok) {
+            document.getElementById("successMessage").style.display = "block";
+            window.location.href = "postdata.html";
+          } else {
+            throw new Error("Failed to redirect");
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("Error uploading images");
+        });
+    }
   </script>
 </body>
 </html>

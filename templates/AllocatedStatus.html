@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Allocated Status</title>
   <style>
-    body {
+   body {
       font-family: Arial, sans-serif;
       margin: 0px;
       background-color: #f3e5f5;
@@ -324,15 +324,14 @@ margin-top: 5%;
     <h2 class="web-heading">Allocated Status</h2>
     <h4 class="mobile-heading">Allocated Status</h4>
   </div>
-
   <div class="all">
         <div class="nav-links">
             <div class="dropdown" onclick="toggleActivityDropdown()">
-<!--                <a href="#" class="dropbtn">Activity</a>-->
+                <a href="#" class="dropbtn">Activity</a>
                 <!-- Adding sub-options under "Activity" -->
                 <div class="dropdown-content" id="activityDropdownContent">
 <!--                    <a href="/AllocatedStatus.html">Task Allocation</a>-->
-<!--                    <a href="/usertaskStatus">Task Status</a>-->
+                    <a href="/usertaskStatus">Task Status</a>
                 </div>
             </div>
             <div class="dropdown" onclick="toggleProfileDropdown()">
@@ -355,9 +354,6 @@ margin-top: 5%;
             <option value="{{ site_code }}">{{ site_code }}</option>
             {% endfor %}
         </select>
-
-       <p class="error-message" id="errorMessage" color="red " style="display: none; color:red;">Please select the site ID </p>
-
         <button type="button" id="submit1" onclick="displayTable()">Submit</button>
     </form>
   </div>
@@ -383,71 +379,7 @@ margin-top: 5%;
 
   <script>
 
-
-
-    function displayTable() {
-          var siteId = document.getElementById("siteId").value;
-
-        if (siteId === "Select Circle") {
-                // Display error message
-                document.getElementById("errorMessage").style.display = "block";
-                // Prevent form submission
-                event.preventDefault();
-            } else {
-                // Hide error message if site ID is selected
-                document.getElementById("errorMessage").style.display = "none";
-                // Allow form submission
-                // Optionally, you can remove this line to allow default form submission behavior
-                // event.preventDefault();
-            }
-
-          if (siteId !== "Select Circle") {
-            fetch('/AllocatedStatus.html', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-              },
-              body: new URLSearchParams({ 'siteId': siteId })
-            })
-            .then(response => response.json())
-            .then(data => {
-              console.log('Data received:', data); // Log the received data
-              var tableBody = document.getElementById("tableBody");
-              tableBody.innerHTML = ''; // Clear existing rows
-
-              var rowCount = 0;
-              for (var field in data) {
-                rowCount++;
-                tableBody.innerHTML += `
-                  <tr>
-                    <td>${rowCount}</td>
-                    <td>${field}</td>
-                    <td>${data[field]}</td>
-                  </tr>
-                `;
-              }
-
-              // Show the table container
-              document.getElementById("table-container").style.display = "block";
-
-              // Show the buttons
-              document.getElementById("acceptButton").style.display = "inline-block";
-              document.getElementById("cancelButton").style.display = "inline-block";
-            })
-            .catch(error => console.error('Error fetching data:', error));
-          } else {
-        <!--    alert("Please select a Site ID.");-->
-          }
-        }
-
-    function acceptAction() {
-      window.location.href = "presectorselectionpage.html";
-    }
-
-    function cancelAction() {
-      window.location.href = "nooption.html";
-    }
-    function toggleActivityDropdown() {
+      function toggleActivityDropdown() {
       var activityDropdownContent = document.getElementById("activityDropdownContent");
       var profileDropdownContent = document.getElementById("profileDropdownContent");
       if (activityDropdownContent.style.display === "block") {
@@ -457,20 +389,68 @@ margin-top: 5%;
           // Close profile dropdown if it's open
           profileDropdownContent.style.display = "none";
       }
-  }
+    }
 
-  function toggleProfileDropdown() {
-      var profileDropdownContent = document.getElementById("profileDropdownContent");
-      var activityDropdownContent = document.getElementById("activityDropdownContent");
-      if (profileDropdownContent.style.display === "block") {
-          profileDropdownContent.style.display = "none";
-      } else {
-          profileDropdownContent.style.display = "block";
-          // Close activity dropdown if it's open
-          activityDropdownContent.style.display = "none";
+      function toggleProfileDropdown() {
+          var profileDropdownContent = document.getElementById("profileDropdownContent");
+          var activityDropdownContent = document.getElementById("activityDropdownContent");
+          if (profileDropdownContent.style.display === "block") {
+              profileDropdownContent.style.display = "none";
+          } else {
+              profileDropdownContent.style.display = "block";
+              // Close activity dropdown if it's open
+              activityDropdownContent.style.display = "none";
+          }
       }
-  }
+    function displayTable() {
+  var siteId = document.getElementById("siteId").value;
 
+  if (siteId !== "Select Circle") {
+    fetch('/AllocatedStatus.html', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({ 'siteId': siteId })
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Data received:', data); // Log the received data
+      var tableBody = document.getElementById("tableBody");
+      tableBody.innerHTML = ''; // Clear existing rows
+
+      var rowCount = 0;
+      for (var field in data) {
+        rowCount++;
+        tableBody.innerHTML += `
+          <tr>
+            <td>${rowCount}</td>
+            <td>${field}</td>
+            <td>${data[field]}</td>
+          </tr>
+        `;
+      }
+
+      // Show the table container
+      document.getElementById("table-container").style.display = "block";
+
+      // Show the buttons
+      document.getElementById("acceptButton").style.display = "inline-block";
+      document.getElementById("cancelButton").style.display = "inline-block";
+    })
+    .catch(error => console.error('Error fetching data:', error));
+  } else {
+    alert("Please select a Site ID.");
+  }
+}
+
+    function acceptAction() {
+      window.location.href = "presectorselectionpage.html";
+    }
+
+    function cancelAction() {
+      window.location.href = "nooption.html";
+    }
   </script>
 </body>
 </html>

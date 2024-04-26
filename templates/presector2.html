@@ -4,8 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sector-2 Image Upload</title>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
       /* Add your styling here */
       table {
@@ -301,84 +299,61 @@
     </table>
 
     <button id="submitButton" onclick="submitForm2()">Submit</button>
-<!--   <p-->
-<!--      id="successMessage"-->
-<!--      style="color: #333333; margin-top: 10%; margin-left: 35%; display: none"-->
-<!--    >-->
-<!--      Successfully uploaded images for sector-2-->
-<!--    </p>-->
+   <p
+      id="successMessage"
+      style="color: #333333; margin-top: 10%; margin-left: 35%; display: none"
+    >
+      Successfully uploaded images for sector-2
+    </p>
      <p id="mobileSuccessMessage" style="color: #333333; margin-top: 70px; margin-left: 25%; display: none">
       <!-- Message for mobile view -->
       Successfully uploaded images for sector-2
     </p>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-  let imagesFile = {};
+    <script>
+      let imagesFile = {};
 
-  function storeImageFile(file, inputId) {
-    imagesFile[inputId] = file;
-    displayFileName(inputId, inputId.replace("Sec2", "ImageSec2"));
-  }
+      function storeImageFile(file, inputId) {
+        imagesFile[inputId] = file;
+        displayFileName(inputId, inputId.replace("Sec2", "ImageSec2"));
+      }
 
-  function displayFileName(inputId, spanId) {
-    const input = document.getElementById(inputId);
-    const fileNameSpan = document.getElementById(spanId);
-
-    // Check if any file is selected
-    if (input.files.length > 0) {
-      fileNameSpan.textContent = input.files[0].name; // Display the name of the first selected file
-    } else {
-      fileNameSpan.textContent = ""; // Clear the name if no file is selected
-    }
-  }
-
-  function submitForm2() {
-    const formData = new FormData();
-
-    const fileInputs = document.querySelectorAll('input[type="file"]');
-    fileInputs.forEach((input) => {
-      const file = input.files[0];
-      formData.append(input.name, file);
-    });
-
-    fetch("/upload-images-2", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => {
-        if (response.ok) {
-          // Display success message using SweetAlert
-          Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: 'Successfully uploaded images for sector-2',
-            confirmButtonText: 'OK'
-          }).then(() => {
-            // Redirect to the next page
-            window.location.href = "presector3.html";
-          });
+      function displayFileName(inputId, spanId) {
+        const input = document.getElementById(inputId);
+        const fileNameSpan = document.getElementById(spanId);
+        if (input.files.length > 0) {
+          fileNameSpan.textContent = input.files[0].name;
         } else {
-          // Display error message using SweetAlert
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Failed to upload images. Please try again later.',
-            confirmButtonText: 'OK'
-          });
+          fileNameSpan.textContent = "";
         }
-      })
-      .catch((error) => {
-        // Display error message using SweetAlert
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'An error occurred while uploading images.',
-          confirmButtonText: 'OK'
+      }
+
+      function submitForm2() {
+        const formData = new FormData();
+
+        const fileInputs = document.querySelectorAll('input[type="file"]');
+        fileInputs.forEach((input) => {
+          const file = input.files[0];
+          formData.append(input.name, file);
         });
-        console.error("Error:", error);
-      });
-  }
-</script>
+
+        fetch("/upload-images-2", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => {
+            if (response.ok) {
+              document.getElementById("successMessage").style.display = "block";
+              window.location.href = "presector3.html";
+            } else {
+              return alert("Failed to redirect");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("Error uploading images");
+          });
+      }
+    </script>
   </body>
 </html>

@@ -4,9 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sector-1 Image Upload</title>
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <style>
       table {
         border-collapse: collapse;
@@ -336,7 +333,12 @@
       </tbody>
     </table>
     <button id="submitButton" onclick="submitForm1()">Submit</button>
-
+   <p
+      id="successMessage"
+      style="color: #333333; margin-top: 10%; margin-left: 35%; display: none"
+    >
+      Successfully uploaded images for sector-1
+    </p>
 
      <p id="mobileSuccessMessage" style="color: #333333; margin-top: 70px; margin-left: 25%; display: none">
       <!-- Message for mobile view -->
@@ -344,58 +346,51 @@
     </p>
 
     <script>
-       let imagesFile = {};
+      let imagesFile = {};
 
-    function storeImageFile(file, inputId) {
-      imagesFile[inputId] = file;
-      displayFileName(inputId, inputId.replace("Sec1", "ImageSec1"));
-    }
-
-    function displayFileName(inputId, spanId) {
-      const input = document.getElementById(inputId);
-      const fileNameSpan = document.getElementById(spanId);
-
-      // Check if any file is selected
-      if (input.files.length > 0) {
-        fileNameSpan.textContent = input.files[0].name; // Display the name of the first selected file
-      } else {
-        fileNameSpan.textContent = ""; // Clear the name if no file is selected
+      function storeImageFile(file, inputId) {
+        imagesFile[inputId] = file;
+        displayFileName(inputId, inputId.replace("Sec1", "ImageSec1"));
       }
-    }
 
-    function submitForm1() {
-      const formData = new FormData();
+      function displayFileName(inputId, spanId) {
+        const input = document.getElementById(inputId);
+        const fileNameSpan = document.getElementById(spanId);
 
-      const fileInputs = document.querySelectorAll('input[type="file"]');
-      fileInputs.forEach((input) => {
-        const file = input.files[0];
-        formData.append(input.name, file);
-      });
-
-      fetch("/upload-images-1", {
-        method: "POST",
-        body: formData,
-      })
-      .then((response) => {
-        if (response.ok) {
-          // Display success message using SweetAlert
-          Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: 'Successfully uploaded images for sector-1',
-            confirmButtonText: 'OK'
-          }).then(() => {
-            window.location.href = "presector2.html";
-          });
+        // Check if any file is selected
+        if (input.files.length > 0) {
+          fileNameSpan.textContent = input.files[0].name; // Display the name of the first selected file
         } else {
-          return alert("Failed to redirect");
+          fileNameSpan.textContent = ""; // Clear the name if no file is selected
         }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("Error uploading images");
-      });
-    }
+      }
+
+      function submitForm1() {
+        const formData = new FormData();
+
+        const fileInputs = document.querySelectorAll('input[type="file"]');
+        fileInputs.forEach((input) => {
+          const file = input.files[0];
+          formData.append(input.name, file);
+        });
+
+        fetch("/upload-images-1", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => {
+            if (response.ok) {
+              document.getElementById("successMessage").style.display = "block";
+              window.location.href = "presector2.html";
+            } else {
+              return alert("Failed to redirect");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("Error uploading images");
+          });
+      }
     </script>
   </body>
 </html>
