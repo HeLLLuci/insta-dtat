@@ -199,7 +199,10 @@ select {
     }
 
     .submit-cancel-buttons button {
-      margin-right: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
     }
 
 
@@ -255,17 +258,18 @@ select {
     .mobile-heading{
       display: none;
     }
-    .allocate{
-        margin-bottom: 5%;
-        width: 100%;
-        /* Make bmargin-top: 20px;
-        margin-right: 20px;*/
-      }
-      .cancel{
-      margin-right:20px;
-        margin-top: 5%;
-        width: 60%; /* Make button full width */
-      }
+    .allocate,
+    .cancel {
+    width: 100%; /* Set both buttons to be full width of the container */
+    padding: 10px; /* Add padding for better appearance */
+    background-color: #1976d2; /* Background color */
+    color: #fff; /* Text color */
+    border: none; /* Remove border */
+    cursor: pointer;
+    border-radius: 25px; /* Rounded corners */
+    margin-top: 5px; /* Adjust margin between buttons */
+    box-sizing: border-box;
+    }
     @media screen and (max-width: 600px) {
       .container {
         max-width: 100%; /* Adjust width to full width on mobile */
@@ -383,22 +387,18 @@ select {
         margin-left: 25%;
       }
       .allocate,
-{
-    width: calc(50% - 5px); /* Set both buttons to be 50% of the container width minus any margin */
-    padding: 10px; /* Add padding for better appearance */
-    box-sizing: border-box; /* Include padding and border in the total width */
-    margin-right: 10px; /* Adjust margin between buttons */
-}
-.cancel{
-width: calc(50% - 5px); /* Set both buttons to be 50% of the container width minus any margin */
-    padding: 10px; /* Add padding for better appearance */
-    box-sizing: border-box; /* Include padding and border in the total width */
-     /* Adjust margin between buttons */
-      margin-right:20px;
-        margin-top: 5%;
-        /* Make button full width */
+      .cancel {
+        width: 100%; /* Set both buttons to be full width of the container */
+        padding: 10px; /* Add padding for better appearance */
+        background-color: #1976d2; /* Background color */
+        color: #fff; /* Text color */
+        border: none; /* Remove border */
+        cursor: pointer;
+        border-radius: 25px; /* Rounded corners */
+        margin-top: 5px; /* Adjust margin between buttons */
+        box-sizing: border-box;
       }
-    }
+      }
 
     </style>
     <script>
